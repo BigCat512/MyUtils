@@ -16,9 +16,8 @@ import java.util.regex.Pattern;
  */
 public class BitOperationMatch {
     /**
-     * 比如忽略大小写、多行匹配等 TODO 测试
+     * 比如忽略大小写、多行匹配等
      * @param args  args
-     * @return 比如忽略大小写、多行匹配等
      * @author XJH
      * @since 2023/3/31
      **/
