@@ -5,8 +5,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
- * </p>
+ * <a href="https://baomidou.com/pages/226c21/#编码">数据库脚本</a> * </p>
  *
  * @author XJH
  * @version 1.0
