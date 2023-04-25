@@ -1,4 +1,4 @@
-package org.example.pinyin;
+package org.example.demo.pinyin;
 
 
 import cn.hutool.extra.pinyin.PinyinUtil;

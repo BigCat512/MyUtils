@@ -1,4 +1,4 @@
-package org.example.Net;
+package org.example.demo.Net;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;

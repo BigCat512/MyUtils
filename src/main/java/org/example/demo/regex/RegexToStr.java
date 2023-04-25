@@ -1,4 +1,4 @@
-package org.example.regex;
+package org.example.demo.regex;
 
 import com.mifmif.common.regex.Generex;
 
