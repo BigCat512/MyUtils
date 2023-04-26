@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,4 +48,16 @@ public class UserTest {
     public void testSaveByManualTransactional() {
         userManager.save3(new User().setName("testSaveByManualTransactional").setAge(23));
     }
+
+    @Test
+    public void testSaveBatch(){
+        userManager.saveBatch(new ArrayList<User>(){{
+            add(new User().setName("testSaveBatch-1"));
+            add(new User().setName("testSaveBatch-2"));
+            add(new User().setName("testSaveBatch-3"));
+            add(new User().setName("testSaveBatch-4"));
+        }});
+    }
+
+
 }

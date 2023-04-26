@@ -2,6 +2,9 @@ package org.example.manager;
 
 import org.example.entity.User;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * <p>
  *
@@ -12,6 +15,9 @@ import org.example.entity.User;
  * @since 2023/4/25
  */
 public interface UserManager {
+
+    void saveBatch(List<User> users);
+
     /**
      * 新增
      * @param user {@link User}

@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.example.config.CommonMapper;
 import org.example.entity.User;
 
 /**
@@ -12,6 +12,6 @@ import org.example.entity.User;
  * @version 1.0
  * @since 2023/4/25
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends CommonMapper<User> {
 
 }

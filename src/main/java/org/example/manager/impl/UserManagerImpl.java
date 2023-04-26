@@ -18,6 +18,8 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -43,6 +45,13 @@ public class UserManagerImpl implements UserManager {
     DataSourceTransactionManager dataSourceTransactionManager;
     @Resource
     TransactionDefinition transactionDefinition;
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void saveBatch(List<User> users) {
+        userMapper.insertBatch(users);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
