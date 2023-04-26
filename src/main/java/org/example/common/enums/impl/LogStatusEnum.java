@@ -1,5 +1,6 @@
 package org.example.common.enums.impl;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import org.example.common.enums.TypeRef;
 
 /**
@@ -30,6 +31,7 @@ public enum LogStatusEnum implements TypeRef {
 
     ;
 
+    @EnumValue
     private final Integer code;
     private final String message;
 
