@@ -1,4 +1,4 @@
-package org.example.common;
+package org.example.common.constant;
 
 import cn.hutool.core.date.DatePattern;
 
