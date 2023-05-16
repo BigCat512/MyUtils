@@ -41,7 +41,7 @@ public class UserTest {
     }
     @Test
     public void testSaveEvent() {
-        userManager.save2(new User().setName("testSaveEvent").setAge(23));
+        userManager.save2(new User().setName("testSaveEvent20230516").setAge(23));
     }
 
     @Test

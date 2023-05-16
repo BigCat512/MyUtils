@@ -70,7 +70,7 @@ public class UserManagerImpl implements UserManager {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public Integer save2(User user) {
         int insert = userMapper.insert(user);
-        applicationEventPublisher.publishEvent(new User().setName("save2.event").setAge(11));
+        applicationEventPublisher.publishEvent(new User().setName("testSaveEvent20230516.save2.event").setAge(11));
         return insert;
     }
 
