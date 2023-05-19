@@ -1,4 +1,4 @@
-package org.example.config;
+package org.example.common.config;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

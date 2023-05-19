@@ -2,9 +2,10 @@ package org.example.event;
 
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.example.entity.User;
+import org.example.dao.entity.User ;
+import org.example.dao.service.UserService;
+import org.example.domain.dto.UserDTO;
 import org.example.manager.UserManager;
-import org.example.mapper.UserMapper;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -29,7 +30,7 @@ import java.util.Collections;
 @Component
 public class EventListenerList {
     @Resource
-    private UserMapper userMapper;
+    private UserService userService;
     @Resource
     DataSourceTransactionManager dataSourceTransactionManager;
     @Resource
@@ -78,7 +79,7 @@ public class EventListenerList {
     @Order(1) // 一个事件多个事监听，同步的情况下，使用@order值越小，执行顺序优先
     @Async("asyncServiceExecutor")
     @EventListener
-    public void userRegisterListener2(User user) {
+    public void userRegisterListener2(UserDTO user) {
         TransactionStatus transactionStatus = null;
         log.info("userRegisterListener：{}", JSONUtil.toJsonStr(user));
         userManager.saveBatch(Collections.singletonList(user));

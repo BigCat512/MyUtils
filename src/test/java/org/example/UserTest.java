@@ -1,8 +1,9 @@
 package org.example;
 
-import org.example.entity.User;
+import org.example.dao.entity.User;
+import org.example.dao.mapper.UserMapper;
+import org.example.domain.dto.UserDTO;
 import org.example.manager.UserManager;
-import org.example.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,25 +38,26 @@ public class UserTest {
 
     @Test
     public void testSave() {
-        userManager.save(new User().setName("baba").setAge(23));
+        userManager.save1(new UserDTO().toBuilder().name("baba").age(23).build());
     }
+
     @Test
     public void testSaveEvent() {
-        userManager.save2(new User().setName("testSaveEvent20230516").setAge(23));
+        userManager.save2(UserDTO.builder().name("testSaveEvent20230516").age(23).build());
     }
 
     @Test
     public void testSaveByManualTransactional() {
-        userManager.save3(new User().setName("testSaveByManualTransactional").setAge(23));
+        userManager.save3(UserDTO.builder().name("testSaveByManualTransactional").age(23).build());
     }
 
     @Test
-    public void testSaveBatch(){
-        userManager.saveBatch(new ArrayList<User>(){{
-            add(new User().setName("testSaveBatch-1"));
-            add(new User().setName("testSaveBatch-2"));
-            add(new User().setName("testSaveBatch-3"));
-            add(new User().setName("testSaveBatch-4"));
+    public void testSaveBatch() {
+        userManager.saveBatch(new ArrayList<UserDTO>() {{
+            add(UserDTO.builder().name("testSaveBatch-1").build());
+            add(UserDTO.builder().name("testSaveBatch-2").build());
+            add(UserDTO.builder().name("testSaveBatch-3").build());
+            add(UserDTO.builder().name("testSaveBatch-4").build());
         }});
     }
 

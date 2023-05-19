@@ -1,4 +1,4 @@
-package org.example.config;
+package org.example.common.config;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;

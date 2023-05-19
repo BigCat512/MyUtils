@@ -1,6 +1,6 @@
 package org.example.manager;
 
-import org.example.entity.User;
+import org.example.domain.dto.UserDTO;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,32 +16,32 @@ import java.util.List;
  */
 public interface UserManager {
 
-    void saveBatch(List<User> users);
+    void saveBatch(List<UserDTO> users);
 
     /**
      * 新增
-     * @param user {@link User}
+     * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH
      * @since 2023/4/25
      **/
-    Integer save(User user);
+    Integer save1(UserDTO user);
 
     /**
      * 新增
-     * @param user {@link User}
+     * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH
      * @since 2023/4/25
      **/
-    Integer save2(User user);
+    Integer save2(UserDTO user);
 
     /**
      * 新增
-     * @param user {@link User}
+     * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH
      * @since 2023/4/25
      **/
-    Integer save3(User user);
+    Integer save3(UserDTO user);
 }

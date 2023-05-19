@@ -3,10 +3,9 @@ package org.example.manager.impl;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.example.entity.User;
+import org.example.dao.service.UserService;
+import org.example.domain.dto.UserDTO;
 import org.example.manager.UserManager;
-import org.example.mapper.UserMapper;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,7 +17,6 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +33,7 @@ import java.util.Objects;
 @Service
 public class UserManagerImpl implements UserManager {
     @Resource
-    private UserMapper userMapper;
+    private UserService userService;
     @Resource(name = "asyncServiceExecutor")
     private ThreadPoolTaskExecutor executor;
     @Resource
@@ -49,17 +47,17 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveBatch(List<User> users) {
-        userMapper.insertBatch(users);
+    public void saveBatch(List<UserDTO> users) {
+        userService.insertBatch(users);
     }
 
-    @Override
+
     @Transactional(rollbackFor = Exception.class)
-    public Integer save(User user) {
-        int insert = userMapper.insert(user);
+    public Integer save1(UserDTO user) {
+        int insert = userService.insert(user);
         executor.execute(() -> {
             UserManagerImpl bean = SpringUtil.getBean(UserManagerImpl.class);
-            bean.createThreadSave(new User().setName("save2").setAge(11));
+            bean.createThreadSave(UserDTO.builder().name("save2").age(11).build());
         });
 
         return insert;
@@ -68,20 +66,20 @@ public class UserManagerImpl implements UserManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public Integer save2(User user) {
-        int insert = userMapper.insert(user);
-        applicationEventPublisher.publishEvent(new User().setName("testSaveEvent20230516.save2.event").setAge(11));
+    public Integer save2(UserDTO user) {
+        int insert = userService.insert(user);
+        applicationEventPublisher.publishEvent(UserDTO.builder().name("testSaveEvent20230516.save2.event").age(11).build());
         return insert;
     }
 
     @Override
-    public Integer save3(User user) {
+    public Integer save3(UserDTO user) {
         TransactionStatus transactionStatus = null;
         try {
             // 手动开启事务
             transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
             log.info("userRegisterListener：{}", JSONUtil.toJsonStr(user));
-            int insert = userMapper.insert(user);
+            int insert = userService.insert(user);
             int i = 1 / 0;
             // 手动提交事务
             dataSourceTransactionManager.commit(transactionStatus);
@@ -99,14 +97,15 @@ public class UserManagerImpl implements UserManager {
 
     /**
      * 测试多线程调用本类方法的事务
-     * @param user {@link User}
+     *
+     * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH
      * @since 2023/4/25
      **/
     @Transactional(rollbackFor = Exception.class)
-    public Integer createThreadSave(User user) {
-        int insert = userMapper.insert(user);
+    public Integer createThreadSave(UserDTO user) {
+        int insert = userService.insert(user);
         int i = 1 / 0;
         return insert;
     }

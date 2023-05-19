@@ -1,4 +1,4 @@
-package org.example.config;
+package org.example.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
