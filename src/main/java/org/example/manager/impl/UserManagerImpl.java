@@ -53,8 +53,8 @@ public class UserManagerImpl implements UserManager {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public Integer save1(UserDTO user) {
-        int insert = userService.insert(user);
+    public boolean save1(UserDTO user) {
+        boolean insert = userService.insert(user);
         executor.execute(() -> {
             UserManagerImpl bean = SpringUtil.getBean(UserManagerImpl.class);
             bean.createThreadSave(UserDTO.builder().name("save2").age(11).build());
@@ -66,20 +66,20 @@ public class UserManagerImpl implements UserManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public Integer save2(UserDTO user) {
-        int insert = userService.insert(user);
+    public boolean save2(UserDTO user) {
+        boolean insert = userService.insert(user);
         applicationEventPublisher.publishEvent(UserDTO.builder().name("testSaveEvent20230516.save2.event").age(11).build());
         return insert;
     }
 
     @Override
-    public Integer save3(UserDTO user) {
+    public boolean save3(UserDTO user) {
         TransactionStatus transactionStatus = null;
         try {
             // 手动开启事务
             transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
             log.info("userRegisterListener：{}", JSONUtil.toJsonStr(user));
-            int insert = userService.insert(user);
+            boolean insert = userService.insert(user);
             int i = 1 / 0;
             // 手动提交事务
             dataSourceTransactionManager.commit(transactionStatus);
@@ -89,7 +89,7 @@ public class UserManagerImpl implements UserManager {
                 dataSourceTransactionManager.rollback(transactionStatus);
             }
         }
-        return null;
+        return Boolean.FALSE;
     }
 
     // =========================================== private method ===========================================
@@ -104,8 +104,8 @@ public class UserManagerImpl implements UserManager {
      * @since 2023/4/25
      **/
     @Transactional(rollbackFor = Exception.class)
-    public Integer createThreadSave(UserDTO user) {
-        int insert = userService.insert(user);
+    public boolean createThreadSave(UserDTO user) {
+        boolean insert = userService.insert(user);
         int i = 1 / 0;
         return insert;
     }

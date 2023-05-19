@@ -24,6 +24,11 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
+    public boolean insert(UserDTO user) {
+        return this.save(BeanUtil.toBean(user, User.class));
+    }
+
+    @Override
     public Integer insertBatch(List<UserDTO> dto) {
         if (CollUtil.isEmpty(dto)) {
             return 0;

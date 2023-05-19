@@ -16,6 +16,15 @@ import org.example.domain.dto.UserDTO;
 public interface UserService extends IService<User> {
 
     /**
+     * 保存
+     * @param user {@link UserDTO}
+     * @return {@link int}
+     * @author XJH
+     * @since 2023/5/19
+     **/
+    boolean insert(UserDTO user);
+
+    /**
      * 批量保存
      *
      * @param dto {@link List<UserDTO>}
@@ -25,12 +34,4 @@ public interface UserService extends IService<User> {
      **/
     Integer insertBatch(List<UserDTO> dto);
 
-    /**
-     * 保存
-     * @param user {@link UserDTO}
-     * @return {@link int}
-     * @author XJH
-     * @since 2023/5/19
-     **/
-    int insert(UserDTO user);
 }

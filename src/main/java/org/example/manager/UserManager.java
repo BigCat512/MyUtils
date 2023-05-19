@@ -25,7 +25,7 @@ public interface UserManager {
      * @author XJH
      * @since 2023/4/25
      **/
-    Integer save1(UserDTO user);
+    boolean save1(UserDTO user);
 
     /**
      * 新增
@@ -34,7 +34,7 @@ public interface UserManager {
      * @author XJH
      * @since 2023/4/25
      **/
-    Integer save2(UserDTO user);
+    boolean save2(UserDTO user);
 
     /**
      * 新增
@@ -43,5 +43,5 @@ public interface UserManager {
      * @author XJH
      * @since 2023/4/25
      **/
-    Integer save3(UserDTO user);
+    boolean save3(UserDTO user);
 }
