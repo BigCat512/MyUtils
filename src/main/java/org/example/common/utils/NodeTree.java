@@ -196,5 +196,25 @@ public class NodeTree implements Serializable {
         return list;
     }
 
+    /**
+     * 根据父节点获取全部子节点
+     * @param pid {@link String}
+     * @param nodeList {@link List<NodeTree>}
+     * @return {@link List<NodeTree>}
+     **/
+    public static List<NodeTree> getAllChildren(String pid, List<NodeTree> nodeList) {
+        List<NodeTree> resultList = new ArrayList<>();
+        if (null != nodeList && nodeList.size() > 0) {
 
+            for (NodeTree node : nodeList) {
+                if (StrUtil.equals(pid, node.getParentId())) {
+                    //添加子级节点
+                    resultList.add(node);
+                    //递归获取深层节点
+                    resultList.addAll(getAllChildren(node.getValue(), nodeList));
+                }
+            }
+        }
+        return resultList;
+    }
 }
