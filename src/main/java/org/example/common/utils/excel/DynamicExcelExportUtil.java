@@ -109,8 +109,7 @@ public class DynamicExcelExportUtil {
                 ExcelWriter excelWriter = EasyExcelFactory.write(outputStream)
                         .registerWriteHandler(writeHandler)
                         .excelType(ExcelTypeEnum.XLSX)
-                        .build();
-                AtomicInteger sheetCount = new AtomicInteger();
+                        .build();AtomicInteger sheetCount = new AtomicInteger();
                 String sheetName = "sheet%s";
                 // 切分数据
                 CollUtil.split(excelRows, 10000).forEach(row -> {

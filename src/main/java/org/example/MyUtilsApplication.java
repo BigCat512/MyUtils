@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
-@MapperScan("org.example.mapper")
+@MapperScan("org.example.dao.mapper")
 @SpringBootApplication
 public class MyUtilsApplication {
     public static void main(String[] args) {

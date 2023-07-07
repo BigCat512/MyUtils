@@ -6,11 +6,17 @@ spring:
     name: demo
   profiles:
     active: local
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+
+  redis:
+    host: localhost
+    password: D5sdfsdvdrVdm_2021
+    port: 6379
 
 mybatis-plus:
   configuration:
