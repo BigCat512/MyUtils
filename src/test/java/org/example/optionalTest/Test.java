@@ -1,7 +1,11 @@
 package org.example.optionalTest;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import lombok.Data;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -17,14 +21,9 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        Test qqq = new Test("qqq");
-        System.out.println("============================");
-        Test tset = Optional.ofNullable(qqq)
-                .orElse(new Test());
-        System.out.println(tset);
-        System.out.println("============================");
-        Test tset2 = Optional.ofNullable(qqq)
-                .orElseGet(() -> new Test());
+       String str = "[]";
+        List<JSONObject> list = JSONUtil.toList(str, JSONObject.class);
+        System.out.println(list);
 
     }
 
