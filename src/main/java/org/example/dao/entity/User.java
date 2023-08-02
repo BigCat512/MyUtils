@@ -62,5 +62,7 @@ public class User implements Serializable {
     @TableField("ebm")
     private Integer ebm;
 
+    private Person person;
+
 
 }

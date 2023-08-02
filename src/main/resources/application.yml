@@ -21,3 +21,7 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false # true 积极加载，false 消极加载
+#    lazy-load-trigger-methods:
+

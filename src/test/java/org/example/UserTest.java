@@ -28,6 +28,14 @@ public class UserTest {
     @Resource
     private UserManager userManager;
 
+
+    @Test
+    public void findAllLazy() {
+        List<User> userList = userMapper.findAllLazy();
+        System.out.println(userList.get(0).getName());
+        System.out.println(userList.get(0).getPerson());
+    }
+
     @Test
     public void testSelect() {
         System.out.println(("----- selectAll method test ------"));
