@@ -1,12 +1,11 @@
 package org.example.demo.patter;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * <p>
  * 模式匹配是通过位运算来匹配
- *
+ * <p>
  * java.util.regex.Pattern#addFlag
  * </p>
  *
@@ -17,7 +16,8 @@ import java.util.regex.Pattern;
 public class BitOperationMatch {
     /**
      * 比如忽略大小写、多行匹配等
-     * @param args  args
+     *
+     * @param args args
      * @author XJH
      * @since 2023/3/31
      **/
@@ -36,7 +36,7 @@ public class BitOperationMatch {
         String input = "cat\nDog\nTasmanian devil";
         Pattern p1 = Pattern.compile(regx);
         System.out.println(p1.matcher(input).find());
-        Pattern p2 = Pattern.compile(regx,Pattern.MULTILINE);
+        Pattern p2 = Pattern.compile(regx, Pattern.MULTILINE);
         System.out.println(p2.matcher(input).find());
         Pattern p3 = Pattern.compile(regx, flag);
         System.out.println(p3.matcher(input).find());

@@ -1,19 +1,15 @@
 package org.example.domain.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Xjh
@@ -66,6 +62,7 @@ public class UserDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -73,6 +70,7 @@ public class UserDTO implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
     public Integer getAge() {
         return age;
     }
@@ -80,6 +78,7 @@ public class UserDTO implements Serializable {
     public void setAge(Integer age) {
         this.age = age;
     }
+
     public String getEmail() {
         return email;
     }
@@ -87,6 +86,7 @@ public class UserDTO implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public Integer getPid() {
         return pid;
     }
@@ -94,6 +94,7 @@ public class UserDTO implements Serializable {
     public void setPid(Integer pid) {
         this.pid = pid;
     }
+
     public Integer getPbm() {
         return pbm;
     }
@@ -101,6 +102,7 @@ public class UserDTO implements Serializable {
     public void setPbm(Integer pbm) {
         this.pbm = pbm;
     }
+
     public Integer getEid() {
         return eid;
     }
@@ -108,6 +110,7 @@ public class UserDTO implements Serializable {
     public void setEid(Integer eid) {
         this.eid = eid;
     }
+
     public Integer getEbm() {
         return ebm;
     }
@@ -119,14 +122,14 @@ public class UserDTO implements Serializable {
     @Override
     public String toString() {
         return "UserDTO{" +
-            "id=" + id +
-            ", name=" + name +
-            ", age=" + age +
-            ", email=" + email +
-            ", pid=" + pid +
-            ", pbm=" + pbm +
-            ", eid=" + eid +
-            ", ebm=" + ebm +
-        "}";
+                "id=" + id +
+                ", name=" + name +
+                ", age=" + age +
+                ", email=" + email +
+                ", pid=" + pid +
+                ", pbm=" + pbm +
+                ", eid=" + eid +
+                ", ebm=" + ebm +
+                "}";
     }
 }

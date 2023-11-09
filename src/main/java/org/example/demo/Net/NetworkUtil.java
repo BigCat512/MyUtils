@@ -1,15 +1,16 @@
 package org.example.demo.Net;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
- 
+
 /**
  * 常用获取客户端信息的工具
  */
 public class NetworkUtil {
- 
+
     /**
      * 获取ip地址
      */
@@ -31,7 +32,7 @@ public class NetworkUtil {
             ip = request.getRemoteAddr();
         }
         // 本机访问
-        if ("localhost".equalsIgnoreCase(ip) || "127.0.0.1".equalsIgnoreCase(ip) || "0:0:0:0:0:0:0:1".equalsIgnoreCase(ip)){
+        if ("localhost".equalsIgnoreCase(ip) || "127.0.0.1".equalsIgnoreCase(ip) || "0:0:0:0:0:0:0:1".equalsIgnoreCase(ip)) {
             // 根据网卡取本机配置的IP
             InetAddress inet;
             try {
@@ -49,7 +50,7 @@ public class NetworkUtil {
         }
         return ip;
     }
- 
+
     /**
      * 获取mac地址
      */
@@ -68,5 +69,5 @@ public class NetworkUtil {
         }
         return sb.toString().trim().toUpperCase();
     }
- 
+
 }

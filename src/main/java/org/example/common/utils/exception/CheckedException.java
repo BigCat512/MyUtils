@@ -1,7 +1,5 @@
 package org.example.common.utils.exception;
 
-import cn.hutool.extra.spring.SpringUtil;
-
 /**
  * <p>
  * 自定义断言

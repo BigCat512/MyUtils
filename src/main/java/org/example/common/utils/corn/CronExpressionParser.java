@@ -1,14 +1,12 @@
 package org.example.common.utils.corn;
 
-import com.cronutils.model.CronType;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import com.cronutils.descriptor.CronDescriptor;
 import com.cronutils.model.Cron;
+import com.cronutils.model.CronType;
 import com.cronutils.model.definition.CronDefinition;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.parser.CronParser;
+import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
@@ -31,7 +29,7 @@ public class CronExpressionParser {
         CronParser cronParser = new CronParser(cronDefinition);
         Cron cron = cronParser.parse("0 0 5 2,3,20 * ?");
         CronDescriptor englishDescriptor = CronDescriptor.instance(Locale.US);
-        CronDescriptor  chineseDescriptor = CronDescriptor.instance(Locale.CHINA);
+        CronDescriptor chineseDescriptor = CronDescriptor.instance(Locale.CHINA);
         CronDescriptor descriptor;
         if ("zh".equalsIgnoreCase(Locale.CHINA.getLanguage())) {
             descriptor = chineseDescriptor;

@@ -2,7 +2,6 @@ package org.example.manager;
 
 import org.example.domain.dto.UserDTO;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,6 +19,7 @@ public interface UserManager {
 
     /**
      * 新增
+     *
      * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH
@@ -29,6 +29,7 @@ public interface UserManager {
 
     /**
      * 新增
+     *
      * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH
@@ -38,6 +39,7 @@ public interface UserManager {
 
     /**
      * 新增
+     *
      * @param user {@link UserDTO}
      * @return {@link Integer}
      * @author XJH

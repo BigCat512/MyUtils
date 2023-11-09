@@ -2,8 +2,6 @@ package org.example.demo.regex;
 
 import com.mifmif.common.regex.Generex;
 
-import java.util.List;
-
 /**
  * <p>
  * 正则表达式逆向字符串: <a href="https://houbb.github.io/2021/09/05/Generex">...</a>

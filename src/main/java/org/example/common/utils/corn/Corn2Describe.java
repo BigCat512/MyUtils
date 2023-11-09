@@ -87,13 +87,13 @@ public class Corn2Describe {
         var sBuffer = new StringBuilder();
         if (tmpCorns.length == 6 || tmpCorns.length == 7) {
             if (tmpCorns.length == 7) {
-                //解析年 Year
+                // 解析年 Year
                 String year = tmpCorns[6];
                 if ((!year.equals("*") && !year.equals("?"))) {
                     sBuffer.append(year).append(cronTimeArr[6]);
                 }
             }
-            //解析月 Month 主要解析 /
+            // 解析月 Month 主要解析 /
             String months = tmpCorns[4];
             if (!months.equals("*") && !months.equals("?")) {
                 if (months.contains("/")) {
@@ -103,7 +103,7 @@ public class Corn2Describe {
                     sBuffer.append("每年").append(months).append(cronTimeArr[4]);
                 }
             }
-            //解析周 DayofWeek  主要解析 , -  1~7/L   1L~7L
+            // 解析周 DayofWeek  主要解析 , -  1~7/L   1L~7L
             String dayofWeek = tmpCorns[5];
             if (!dayofWeek.equals("*") && !dayofWeek.equals("?")) {
                 if (dayofWeek.contains(",")) {// 多个数字，逗号隔开
@@ -131,7 +131,7 @@ public class Corn2Describe {
                     sBuffer.append(weekName);
                 }
             }
-            //解析日 days -- DayofMonth  需要解析的 / # L W
+            // 解析日 days -- DayofMonth  需要解析的 / # L W
             //   *       “6#3”表示本月第三周的星期五（6表示星期五，3表示第三周）;
             //     *       “2#1”表示本月第一周的星期一;
             //     *       “4#5”表示第五周的星期三。
@@ -158,7 +158,7 @@ public class Corn2Describe {
                     sBuffer.append("每").append(cronTimeArr[3]);
                 }
             }
-            //解析时 Hours 主要解析 /
+            // 解析时 Hours 主要解析 /
             String hours = tmpCorns[2];
             if (!hours.equals("*")) {
                 if (hours.contains("/")) {
@@ -173,7 +173,7 @@ public class Corn2Describe {
                     }
                 }
             }
-            //解析分 Minutes 主要解析 /
+            // 解析分 Minutes 主要解析 /
             String minutes = tmpCorns[1];
             if (!minutes.equals("*")) {
                 if (minutes.contains("/")) {
@@ -190,7 +190,7 @@ public class Corn2Describe {
                     sBuffer.append(minutes).append(cronTimeArr[1]);
                 }
             }
-            //解析秒 Seconds 主要解析 /
+            // 解析秒 Seconds 主要解析 /
             String seconds = tmpCorns[0];
             if (!seconds.equals("*")) {
                 if (seconds.contains("/")) {
@@ -224,7 +224,7 @@ public class Corn2Describe {
         if (weekNums < 0 || weekNums > 7) {
             return "cron表达式有误，星期的数字应为1-7";
         }
-        return StrUtil.isNotEmpty(weekName) ? weekName : String.valueOf(weekNum);
+        return StrUtil.isNotEmpty(weekName) ? weekName : weekNum;
     }
 
     /**
@@ -251,7 +251,7 @@ public class Corn2Describe {
         cronExpression = "0 0 2 1 * ? *";
         System.out.println(cronExpression);
         System.out.println(translateToChinese(cronExpression, CRON_TIME_CN));
-        //0 15 10 ? * 2-6   表示周一到周五每天上午10:15执行作业
+        // 0 15 10 ? * 2-6   表示周一到周五每天上午10:15执行作业
         cronExpression = "0 15 10 ? * 2-6";
         System.out.println(cronExpression);
         System.out.println(translateToChinese(cronExpression, CRON_TIME_CN));
