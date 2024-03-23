@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://flowable.org/bpmn">
+    <process id="InclusiveGatewayTest" name="网关-包容网关">
+
+        <startEvent id="startEvent1" flowable:initiator="applyUser"/>
+
+        <sequenceFlow id="sequenceFlow_1" sourceRef="startEvent1" targetRef="serviceTask_1"/>
+
+        <!-- 服务任务：调用 JavaDelegate 自定义实现类 -->
+        <serviceTask id="serviceTask_1" name="serviceTask_1"
+                     flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">
+            <extensionElements>
+                <flowable:elementVariable name="yourVariable" e="elementVariableName" type="java.util.List" />
+            </extensionElements>
+        </serviceTask>
+
+
+        <sequenceFlow id="sequenceFlow_2" sourceRef="serviceTask_1" targetRef="inclusiveGateway_start"/>
+
+        <!-- 包容网关 -->
+        <inclusiveGateway id="inclusiveGateway_start" name="Inclusive Gateway"/>
+
+        <sequenceFlow id="sequenceFlow_task_1" sourceRef="inclusiveGateway_start" targetRef="task_1">
+            <conditionExpression xsi:type = "tFormalExpression">${task_1_condition}</conditionExpression>
+        </sequenceFlow>
+        <userTask id="task_1" name="直属领导审批" flowable:candidateUsers="领导" flowable:exclusive="false"/>
+        
+        <sequenceFlow id="sequenceFlow_task_2" sourceRef="inclusiveGateway_start" targetRef="task_2">
+            <conditionExpression xsi:type = "tFormalExpression">${task_2_condition}</conditionExpression>
+        </sequenceFlow>
+        <userTask id="task_2" name="HR审批" flowable:candidateUsers="HR小王" flowable:exclusive="false"/>
+
+        <sequenceFlow id="sequenceFlow_task_3" sourceRef="inclusiveGateway_start" targetRef="task_3">
+            <conditionExpression xsi:type = "tFormalExpression">${task_3_condition}</conditionExpression>
+        </sequenceFlow>
+        <userTask id="task_3" name="HR总监审批" flowable:candidateUsers="HR大王" flowable:exclusive="false"/>
+
+
+        <sequenceFlow id="sequenceFlow_3" sourceRef="task_1" targetRef="inclusiveGateway_end"/>
+        <sequenceFlow id="sequenceFlow_4" sourceRef="task_2" targetRef="inclusiveGateway_end"/>
+        <sequenceFlow id="sequenceFlow_5" sourceRef="task_3" targetRef="inclusiveGateway_end"/>
+        <inclusiveGateway id="inclusiveGateway_end" name="Inclusive Gateway End"/>
+
+        <sequenceFlow id="sequenceFlow_6" sourceRef="inclusiveGateway_end" targetRef="endEvent"/>
+        <endEvent id="endEvent"/>
+
+
+
+    </process>
+
+</definitions>

@@ -19,6 +19,7 @@
     <modules>
         <module>test</module>
         <module>flowable</module>
+        <module>file</module>
     </modules>
 
     <properties>
@@ -38,11 +39,70 @@
         <hutool.version>5.8.25</hutool.version>
         <cron-utils.version>9.2.1</cron-utils.version>
         <flowable.version>6.7.2</flowable.version>
+        <commons-compress.version>1.21</commons-compress.version>
+        <poi.version>4.1.2</poi.version>
+        <xz.version>1.9</xz.version>
+        <sevenzipjbinding-all-platforms.version>16.02-2.01</sevenzipjbinding-all-platforms.version>
+        <sevenzipjbinding.version>16.02-2.01</sevenzipjbinding.version>
+        <java-unrar.version>1.7.0-8</java-unrar.version>
+        <commons-io.version>2.15.1</commons-io.version>
+        <commons-fileupload.version>1.5</commons-fileupload.version>
     </properties>
 
     <dependencyManagement>
 
         <dependencies>
+            <!-- FileUpload -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <!-- Apache Commons IO，这是FileUpload的依赖项 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- rar -->
+            <dependency>
+                <groupId>com.github.axet</groupId>
+                <artifactId>java-unrar</artifactId>
+                <version>${java-unrar.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.sevenzipjbinding</groupId>
+                <artifactId>sevenzipjbinding</artifactId>
+                <version>${sevenzipjbinding.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.sevenzipjbinding</groupId>
+                <artifactId>sevenzipjbinding-all-platforms</artifactId>
+                <version>${sevenzipjbinding-all-platforms.version}</version>
+            </dependency>
+
+            <!-- 7z -->
+            <dependency>
+                <groupId>org.tukaani</groupId>
+                <artifactId>xz</artifactId>
+                <version>${xz.version}</version>
+            </dependency>
 
             <!-- 工作流 -->
             <dependency>
