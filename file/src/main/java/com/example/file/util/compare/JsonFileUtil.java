@@ -1,6 +1,7 @@
 package com.example.file.util.compare;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONConfig;
 import cn.hutool.json.JSONException;
 import cn.hutool.json.JSONObject;
@@ -31,7 +32,7 @@ public class JsonFileUtil {
     /**
      * 递归最大深度限制
      */
-    private static final int MAX_DEPTH = 3;
+    private static final int MAX_DEPTH = 50;
 
     /**
      * 比对
@@ -44,14 +45,18 @@ public class JsonFileUtil {
      * @since 2024/4/2
      **/
     public static void compare(String oldPath, String newPath, String outPath, String fileType) {
-        File[] oldFiles = new File(oldPath).listFiles();
         File[] newFiles = new File(newPath).listFiles();
-        if (Objects.isNull(oldFiles) || Objects.isNull(newFiles) || oldFiles.length == 0 || newFiles.length == 0) {
+        if (Objects.isNull(newFiles) || newFiles.length == 0) {
             return;
         }
         var destParentPath = Paths.get(outPath);
         if (!destParentPath.toFile().exists()) destParentPath.toFile().mkdirs();
         for (File file : newFiles) {
+            if (StrUtil.isBlank(fileType) || (file.getName().lastIndexOf(".") > 0 &&
+                    !file.getName().substring(file.getName().lastIndexOf(".") + 1)
+                            .equalsIgnoreCase(fileType))) {
+                continue;
+            }
             var oldFilePath = Paths.get(oldPath, file.getName());
             var oldFile = oldFilePath.toFile();
             var destPath = Paths.get(outPath, file.getName());
