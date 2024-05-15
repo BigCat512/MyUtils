@@ -10,7 +10,7 @@
 
         <!-- 服务任务：调用 JavaDelegate 自定义实现类 -->
         <serviceTask id="serviceTask_1" name="serviceTask_1"
-                     flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">
+                     flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
             <extensionElements>
                 <flowable:elementVariable name="yourVariable" e="elementVariableName" type="java.util.List" />
             </extensionElements>

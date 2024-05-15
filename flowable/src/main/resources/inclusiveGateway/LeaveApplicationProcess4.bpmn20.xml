@@ -6,13 +6,39 @@
 
         <startEvent id="startEvent1" flowable:initiator="applyUser"/>
 
-        <sequenceFlow id="sequenceFlow_1" sourceRef="startEvent1" targetRef="serviceTask_1"/>
+
+        <sequenceFlow id="sequenceFlow_2" sourceRef="startEvent1" targetRef="inclusiveGateway_start"></sequenceFlow>
+
+        <!-- 包容网关 -->
+        <inclusiveGateway id="inclusiveGateway_start" name="Inclusive Gateway" flowable:default="sequenceFlow_1"/>
+
+        <sequenceFlow id="sequenceFlow_serviceTask_1" sourceRef="inclusiveGateway_start" targetRef="serviceTask_1"/>
+        <sequenceFlow id="sequenceFlow_serviceTask_2" sourceRef="inclusiveGateway_start" targetRef="serviceTask_2"/>
+        <sequenceFlow id="sequenceFlow_serviceTask_3" sourceRef="inclusiveGateway_start" targetRef="serviceTask_3"/>
 
         <!-- 服务任务：调用 JavaDelegate 自定义实现类 -->
-        <serviceTask id="serviceTask_1" name="serviceTask_1"
-                     flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">
+        <serviceTask id="serviceTask_1" name="serviceTask_1" flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
             <extensionElements>
-                <flowable:elementVariable name="yourVariable" e="elementVariableName" type="java.util.List" />
+                <flowable:field name="myParam">
+                    <!-- 传入自定义参数，如设置为分支流程的第一个UserTask设计id -->
+                    <flowable:string><![CDATA[task_1]]></flowable:string>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+        <serviceTask id="serviceTask_2" name="serviceTask_2" flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
+            <extensionElements>
+                <flowable:field name="myParam">
+                    <!-- 传入自定义参数，如设置为分支流程的第一个UserTask设计id -->
+                    <flowable:string><![CDATA[task_2]]></flowable:string>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+        <serviceTask id="serviceTask_3" name="serviceTask_3" flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
+            <extensionElements>
+                <flowable:field name="myParam">
+                    <!-- 传入自定义参数，如设置为分支流程的第一个UserTask设计id -->
+                    <flowable:string><![CDATA[task_3]]></flowable:string>
+                </flowable:field>
             </extensionElements>
         </serviceTask>
 
@@ -26,12 +52,12 @@
         </sequenceFlow>
         <userTask id="task_1" name="直属领导审批" flowable:candidateUsers="领导" flowable:exclusive="false"/>
         
-        <sequenceFlow id="sequenceFlow_task_2" sourceRef="serviceTask_1" targetRef="task_2">
+        <sequenceFlow id="sequenceFlow_task_2" sourceRef="serviceTask_2" targetRef="task_2">
             <conditionExpression xsi:type = "tFormalExpression">${task_2_condition}</conditionExpression>
         </sequenceFlow>
         <userTask id="task_2" name="HR审批" flowable:candidateUsers="HR小王" flowable:exclusive="false"/>
 
-        <sequenceFlow id="sequenceFlow_task_3" sourceRef="serviceTask_1" targetRef="task_3">
+        <sequenceFlow id="sequenceFlow_task_3" sourceRef="serviceTask_3" targetRef="task_3">
             <conditionExpression xsi:type = "tFormalExpression">${task_3_condition}</conditionExpression>
         </sequenceFlow>
         <userTask id="task_3" name="HR总监审批" flowable:candidateUsers="HR大王" flowable:exclusive="false"/>

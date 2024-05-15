@@ -6,40 +6,34 @@
 
         <startEvent id="startEvent1" flowable:initiator="applyUser"/>
 
-        <sequenceFlow id="sequenceFlow_1" sourceRef="startEvent1" targetRef="inclusiveGateway_start"/>
+        <sequenceFlow id="sequenceFlow_1" sourceRef="startEvent1" targetRef="serviceTask_1"/>
 
-<!--        &lt;!&ndash; 服务任务：调用 JavaDelegate 自定义实现类 &ndash;&gt;-->
-<!--        <serviceTask id="serviceTask_1" name="serviceTask_1"-->
-<!--                     flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">-->
-<!--            <extensionElements>-->
-<!--                <flowable:elementVariable name="yourVariable" e="elementVariableName" type="java.util.List" />-->
-<!--            </extensionElements>-->
-<!--        </serviceTask>-->
+        <!-- 服务任务：调用 JavaDelegate 自定义实现类 -->
+        <serviceTask id="serviceTask_1" name="serviceTask_1"
+                     flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
+            <extensionElements>
+                <flowable:elementVariable name="yourVariable" e="elementVariableName" type="java.util.List" />
+            </extensionElements>
+        </serviceTask>
 
 
-<!--        <sequenceFlow id="sequenceFlow_2" sourceRef="serviceTask_1" targetRef="inclusiveGateway_start"></sequenceFlow>-->
+        <sequenceFlow id="sequenceFlow_2" sourceRef="serviceTask_1" targetRef="inclusiveGateway_start"/>
 
         <!-- 包容网关 -->
         <inclusiveGateway id="inclusiveGateway_start" name="Inclusive Gateway"/>
 
         <sequenceFlow id="sequenceFlow_task_1" sourceRef="inclusiveGateway_start" targetRef="task_1">
-            <conditionExpression xsi:type = "tFormalExpression">
-                <![CDATA[${myConExprService.execute('sequenceFlow_task_1', execution)}]]>
-            </conditionExpression>
+            <conditionExpression xsi:type = "tFormalExpression">${task_1_condition}</conditionExpression>
         </sequenceFlow>
         <userTask id="task_1" name="直属领导审批" flowable:candidateUsers="领导" flowable:exclusive="false"/>
-
+        
         <sequenceFlow id="sequenceFlow_task_2" sourceRef="inclusiveGateway_start" targetRef="task_2">
-            <conditionExpression xsi:type = "tFormalExpression">
-                <![CDATA[${myConExprService.execute('sequenceFlow_task_2', execution)}]]>
-            </conditionExpression>
+            <conditionExpression xsi:type = "tFormalExpression">${task_2_condition}</conditionExpression>
         </sequenceFlow>
         <userTask id="task_2" name="HR审批" flowable:candidateUsers="HR小王" flowable:exclusive="false"/>
 
         <sequenceFlow id="sequenceFlow_task_3" sourceRef="inclusiveGateway_start" targetRef="task_3">
-            <conditionExpression xsi:type = "tFormalExpression">
-                <![CDATA[${myConExprService.execute('sequenceFlow_task_3', execution)}]]>
-            </conditionExpression>
+            <conditionExpression xsi:type = "tFormalExpression">${task_3_condition}</conditionExpression>
         </sequenceFlow>
         <userTask id="task_3" name="HR总监审批" flowable:candidateUsers="HR大王" flowable:exclusive="false"/>
 

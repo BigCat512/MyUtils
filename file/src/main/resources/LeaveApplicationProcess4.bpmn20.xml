@@ -17,7 +17,7 @@
         <sequenceFlow id="sequenceFlow_serviceTask_3" sourceRef="inclusiveGateway_start" targetRef="serviceTask_3"/>
 
         <!-- 服务任务：调用 JavaDelegate 自定义实现类 -->
-        <serviceTask id="serviceTask_1" name="serviceTask_1" flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">
+        <serviceTask id="serviceTask_1" name="serviceTask_1" flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
             <extensionElements>
                 <flowable:field name="myParam">
                     <!-- 传入自定义参数，如设置为分支流程的第一个UserTask设计id -->
@@ -25,7 +25,7 @@
                 </flowable:field>
             </extensionElements>
         </serviceTask>
-        <serviceTask id="serviceTask_2" name="serviceTask_2" flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">
+        <serviceTask id="serviceTask_2" name="serviceTask_2" flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
             <extensionElements>
                 <flowable:field name="myParam">
                     <!-- 传入自定义参数，如设置为分支流程的第一个UserTask设计id -->
@@ -33,7 +33,7 @@
                 </flowable:field>
             </extensionElements>
         </serviceTask>
-        <serviceTask id="serviceTask_3" name="serviceTask_3" flowable:class="com.example.flowable.handle.CustomBranchExecutionDelegate">
+        <serviceTask id="serviceTask_3" name="serviceTask_3" flowable:class="com.example.flowable.handle.ServiceTaskExecutionDelegate">
             <extensionElements>
                 <flowable:field name="myParam">
                     <!-- 传入自定义参数，如设置为分支流程的第一个UserTask设计id -->

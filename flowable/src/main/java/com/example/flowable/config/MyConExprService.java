@@ -1,11 +1,9 @@
 package com.example.flowable.config;
 
 import cn.hutool.core.util.StrUtil;
+import org.flowable.bpmn.model.ExclusiveGateway;
 import org.flowable.engine.delegate.DelegateExecution;
-import org.flowable.variable.api.persistence.entity.VariableInstance;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service("myConExprService")
 public class MyConExprService {
@@ -20,21 +18,21 @@ public class MyConExprService {
         // System.out.println("branchFlowFirstUserTaskIds = " + branchFlowFirstUserTaskIds);
         // 根据 gatewayAndUserTaskIds 查询配置，并且将布尔类型结果设置到变量中（变量名为各环节设计标识+condition）
         // 模拟逻辑操作...
-        var currentFlowElement = execution.getCurrentFlowElement();
-        var tenantId = execution.getTenantId();
+
         var processDefinitionId = execution.getProcessDefinitionId();
-        String currentActivityId = execution.getCurrentActivityId();
-        var processInstanceId = execution.getProcessInstanceId();
-        Map<String, VariableInstance> variableInstances = execution.getVariableInstances();
-        // TODO 确认这里是不是是获取当前环节的标识和名称，如果是，那么可以直接去获取平台自定义的配置
-        var flowElementName = currentFlowElement.getName();
-        var flowElementId = currentFlowElement.getId();
+
+        var currentActivityId = execution.getCurrentActivityId();
+
+        var currentFlowElement = execution.getCurrentFlowElement();
+        var incomingFlows = ((ExclusiveGateway) currentFlowElement).getIncomingFlows();
+        var outgoingFlows = ((ExclusiveGateway) currentFlowElement).getOutgoingFlows();
+
         if (StrUtil.equals("sequenceFlow_task_1", sequenceFlowId)){
-            return Boolean.TRUE;
+            return Boolean.FALSE;
         } else if (StrUtil.equals("sequenceFlow_task_2", sequenceFlowId)){
             return Boolean.TRUE;
         } else if (StrUtil.equals("sequenceFlow_task_3", sequenceFlowId)){
-            return Boolean.FALSE;
+            return Boolean.TRUE;
         }
         return Boolean.TRUE;
     }

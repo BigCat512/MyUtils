@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://flowable.org/bpmn">
+    <process id="ExclusiveGatewayTest" name="网关-包容网关">
+
+        <startEvent id="startEvent1" flowable:initiator="applyUser"/>
+
+        <sequenceFlow id="sequenceFlow_1" sourceRef="startEvent1" targetRef="exclusiveGateway_start"/>
+
+        <!-- 排他网关 -->
+        <exclusiveGateway  id="exclusiveGateway_start" name="Exclusive Gateway"/>
+
+        <sequenceFlow id="sequenceFlow_task_1" sourceRef="exclusiveGateway_start" targetRef="task_1">
+            <conditionExpression xsi:type = "tFormalExpression">
+                <![CDATA[${myConExprService.execute('sequenceFlow_task_1', execution)}]]>
+            </conditionExpression>
+        </sequenceFlow>
+        <userTask id="task_1" name="直属领导审批" flowable:candidateUsers="领导" flowable:exclusive="false"/>
+
+        <sequenceFlow id="sequenceFlow_task_2" sourceRef="exclusiveGateway_start" targetRef="task_2">
+            <conditionExpression xsi:type = "tFormalExpression">
+                <![CDATA[${myConExprService.execute('sequenceFlow_task_2', execution)}]]>
+            </conditionExpression>
+        </sequenceFlow>
+        <userTask id="task_2" name="HR审批" flowable:candidateUsers="HR小王" flowable:exclusive="false"/>
+
+        <sequenceFlow id="sequenceFlow_task_3" sourceRef="exclusiveGateway_start" targetRef="task_3">
+            <conditionExpression xsi:type = "tFormalExpression">
+                <![CDATA[${myConExprService.execute('sequenceFlow_task_3', execution)}]]>
+            </conditionExpression>
+        </sequenceFlow>
+        <userTask id="task_3" name="HR总监审批" flowable:candidateUsers="HR大王" flowable:exclusive="false"/>
+
+        <sequenceFlow id="sequenceFlow_3" sourceRef="task_1" targetRef="task_4"/>
+        <sequenceFlow id="sequenceFlow_4" sourceRef="task_2" targetRef="task_4"/>
+        <sequenceFlow id="sequenceFlow_5" sourceRef="task_3" targetRef="task_4"/>
+
+        <userTask id="task_4" name="王经理审批" flowable:candidateUsers="王经理" flowable:exclusive="false"/>
+
+        <sequenceFlow id="sequenceFlow_6" sourceRef="task_4" targetRef="endEvent"/>
+        <endEvent id="endEvent"/>
+
+
+
+
+    </process>
+
+</definitions>
