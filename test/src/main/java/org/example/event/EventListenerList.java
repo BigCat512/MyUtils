@@ -1,7 +1,6 @@
 package org.example.event;
 
 import cn.hutool.json.JSONUtil;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.entity.User;
 import org.example.dao.service.UserService;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 
 /**

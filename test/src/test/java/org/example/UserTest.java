@@ -1,6 +1,5 @@
 package org.example;
 
-import jakarta.annotation.Resource;
 import org.example.dao.entity.User;
 import org.example.dao.mapper.UserMapper;
 import org.example.domain.dto.UserDTO;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package org.example.controller;
 
-import jakarta.validation.constraints.NotEmpty;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

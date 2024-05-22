@@ -2,7 +2,6 @@ package org.example.manager.impl;
 
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.json.JSONUtil;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.service.UserService;
 import org.example.domain.dto.UserDTO;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
 

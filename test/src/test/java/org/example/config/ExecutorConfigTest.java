@@ -1,11 +1,11 @@
 package org.example.config;
 
-import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import javax.annotation.Resource;
 import java.util.concurrent.Future;
 
 @SpringBootTest
