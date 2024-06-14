@@ -12,6 +12,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import static org.example.common.config.web.HeaderInterceptor.ThreadLocalHolder;
+
 /**
  * <p>
  * $
@@ -85,37 +87,59 @@ public class ExecutorConfig {
         @Override
         public void execute(Runnable task) {
             this.showThreadPoolInfo("Runnable do execute");
-            super.execute(task);
+            super.execute(VisiableThreadPoolTaskExecutor.wrap(task, ThreadLocalHolder.get()));
         }
 
         @Override
         public void execute(Runnable task, long startTimeout) {
             this.showThreadPoolInfo("Callable do execute");
-            super.execute(task, startTimeout);
+            super.execute(VisiableThreadPoolTaskExecutor.wrap(task, ThreadLocalHolder.get()), startTimeout);
         }
 
         @Override
         public Future<?> submit(Runnable task) {
             this.showThreadPoolInfo("Runnable do submit");
-            return super.submit(task);
+            return super.submit(VisiableThreadPoolTaskExecutor.wrap(task, ThreadLocalHolder.get()));
         }
 
         @Override
         public <T> Future<T> submit(Callable<T> task) {
             this.showThreadPoolInfo("Callable do submit");
-            return super.submit(task);
+            return super.submit(VisiableThreadPoolTaskExecutor.wrap(task, ThreadLocalHolder.get()));
         }
 
         @Override
         public ListenableFuture<?> submitListenable(Runnable task) {
             this.showThreadPoolInfo("Runnable do submitListenable");
-            return super.submitListenable(task);
+            return super.submitListenable(VisiableThreadPoolTaskExecutor.wrap(task, ThreadLocalHolder.get()));
         }
 
         @Override
         public <T> ListenableFuture<T> submitListenable(Callable<T> task) {
             this.showThreadPoolInfo("Callable do submitListenable");
-            return super.submitListenable(task);
+            return super.submitListenable(VisiableThreadPoolTaskExecutor.wrap(task, ThreadLocalHolder.get()));
+        }
+
+        private static Runnable wrap(Runnable task, String headerValue) {
+            return () -> {
+                try {
+                    ThreadLocalHolder.set(headerValue);
+                    task.run();
+                } finally {
+                    ThreadLocalHolder.remove();
+                }
+            };
+        }
+
+        private static <T> Callable<T> wrap(Callable<T> task, String headerValue) {
+            return () -> {
+                try {
+                    ThreadLocalHolder.set(headerValue);
+                    return task.call();
+                } finally {
+                    ThreadLocalHolder.remove();
+                }
+            };
         }
     }
 }
