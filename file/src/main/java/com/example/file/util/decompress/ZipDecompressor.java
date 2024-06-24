@@ -23,12 +23,13 @@ import java.io.FileOutputStream;
 public class ZipDecompressor implements DecompressStrategy {
 
     public void decompress(MultipartFile uploadFile, File destDir) {
-        try (var is = uploadFile.getInputStream(); var zipInput = new ZipArchiveInputStream(is)) {
+        try (var is = uploadFile.getInputStream(); var zipInput = new ZipArchiveInputStream(is, "GBK", Boolean.TRUE)) {
             ZipArchiveEntry entry;
             while ((entry = zipInput.getNextZipEntry()) != null) {
                 var entryFile = new File(destDir, entry.getName());
-                if (entryFile.isDirectory()) {
-                    entryFile.mkdirs();
+                entryFile.getParentFile().mkdirs();
+                if (!entry.getName().contains(".")) {
+                    entryFile.mkdir();
                 } else {
                     try (var outputStream = new FileOutputStream(entryFile)) {
                         IOUtils.copy(zipInput, outputStream);
