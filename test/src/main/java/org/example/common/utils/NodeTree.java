@@ -198,7 +198,8 @@ public class NodeTree implements Serializable {
 
     /**
      * 根据父节点获取全部子节点
-     * @param pid {@link String}
+     *
+     * @param pid      {@link String}
      * @param nodeList {@link List<NodeTree>}
      * @return {@link List<NodeTree>}
      **/
@@ -208,13 +209,41 @@ public class NodeTree implements Serializable {
 
             for (NodeTree node : nodeList) {
                 if (StrUtil.equals(pid, node.getParentId())) {
-                    //添加子级节点
+                    // 添加子级节点
                     resultList.add(node);
-                    //递归获取深层节点
+                    // 递归获取深层节点
                     resultList.addAll(getAllChildren(node.getValue(), nodeList));
                 }
             }
         }
         return resultList;
     }
+
+    /**
+     * 构建层级路径
+     *
+     * @param nodes {@link Collection<NodeTree>} 不需要构造成树
+     * @return {@link Map<String, String>} key: NodeTree.value;value: NodeTree.label
+     * @author author
+     * @since 2024/7/23
+     **/
+    public static Map<String, String> buildTierPath(Collection<NodeTree> nodes) {
+        if (CollUtil.isEmpty(nodes)) Collections.emptyMap();
+
+        var tierPathMap = new HashMap<String, String>(nodes.size());
+        // 使用流式操作处理节点列表，将节点的 value 和 label 放入 hierarchyMap
+        nodes.forEach(node -> tierPathMap.put(node.getValue(), node.getLabel()));
+
+        // 处理父子关系，构建完整的路径
+        nodes.stream().filter(node -> node.getParentId() != null && tierPathMap.containsKey(node.getParentId()))
+                .forEach(node -> {
+                    String parentPath = tierPathMap.get(node.getParentId());
+                    String currentPath = tierPathMap.get(node.getValue());
+                    String newPath = currentPath != null ? parentPath + "." + currentPath : parentPath;
+                    tierPathMap.put(node.getValue(), newPath);
+                });
+
+        return tierPathMap;
+    }
+
 }
